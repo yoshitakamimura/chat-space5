@@ -2,48 +2,23 @@
   .main-header
     .main-header-left-box
       %ul.title
-        test
+        = @group.name
         %li.members
-          Member: name
+          Member：
+          - @group.users.each do |member|
+            = member.name 
     .main-header-right-box
-      = link_to '#', class:"edit" do
+      = link_to edit_group_path(@group), class:"edit" do
         Edit
 
   .messages
-    .message
-      .upper-message
-        %p.member
-          name
-        %p.date
-          2020/12/31
-      .lower-message
-        %p.text
-          おはよう
-    .message
-      .upper-message
-        %p.member
-          name
-        %p.date
-          2020/12/31
-      .lower-message
-        %p.text
-          おはよう
-    .message
-      .upper-message
-        %p.member
-          name
-        %p.date
-          2020/12/31
-      .lower-message
-        %p.text
-          おはよう
+    = render @messages
 
   .footer
-    %form.form
+    = form_for [@group, @message], html: {class: 'form' } do |f|
       .input-box
-        %input{type: "text", class: "input-box__content", placeholder: "type a message"}
-        %label{class: "input-box__image"}
+        = f.text_field :content, class: "input-box__content", placeholder: "type a message"
+        = f.label :image, class: "input-box__image" do
           = icon('fas', 'image')
-          %input{type: "file", class: "input-box__image__file"}
-      .submit-button
-        Send
+          = f.file_field :image, class: "input-box__image__file"
+      = f.submit 'Send', class: 'submit-button'
