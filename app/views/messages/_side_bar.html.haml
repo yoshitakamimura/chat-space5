@@ -1,13 +1,13 @@
 .side-bar
   .side-header
     .side-header-box
-      .user-name
+      %h3.side-header-box__user-name
         = current_user.name
-      %ul.menu
-        %li.list
+      %ul.side-header-box__menu
+        %li.side-header-box__menu__list
           = link_to new_group_path do
             = icon('fa', 'edit',class: 'icon')
-        %li.list
+        %li.side-header-box__menu__list
           = link_to edit_user_path(current_user) do
             = icon('fa', 'cog',class: 'icon')
       
@@ -15,7 +15,7 @@
     - current_user.groups.each do |group|
       .side-group-box
         = link_to group_messages_path(group) do
-          .group-name
+          .side-group-box__group-name
             = group.name
-          .group-latest-message
+          .side-group-box__group-latest-message
             = group.show_last_message
